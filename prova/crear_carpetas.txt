@@ -1,0 +1,4 @@
+Para crear una carpeta tienes q darle a create new file y en el nombre poner una barrita al lado.
+ejemplo:
+prova/ (nombre del documento que quieras meter dentro de la carpeta) 
+q guachi :)
