@@ -1,0 +1,27 @@
+EXERCICIS EN PROCÉS:
+P83712 //two rows of numbers
+
+----------------------------------------------------------------------
+EXERCICIS A FER:
+
+BACKTRAKING:
+P42568 //canviar condicio if
+P52363
+P78955 //optimitzar solucio
+
+DYNAMIC PROGRAMING (DP):
+P79936
+P74421
+P88567
+P88921
+
+EXAMS:
+P83712
+//parcial 2024
+P57638
+P73252
+P23914
+P79161
+//
+P77684
+P65235
