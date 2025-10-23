@@ -1,0 +1,32 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+using VI = vector<int>;
+
+int n;
+VI V, centims = {50, 20, 10, 5, 2, 1}, centims1 = {1,2,5,10,20,50};
+
+void escriu(){
+    for(int i = 0; i < int(V.size()); ++i) cout << (i ? " " : "") << V[i];
+    cout << endl;
+}
+
+void f(int i, int sum){
+    if(sum == n) return escriu();
+
+    for(int k = i; k >= 0; --k){
+        if(sum + centims1[k] <= n){
+            V.push_back(centims1[k]);
+            f(k, sum + centims1[k]);
+            V.pop_back();
+        }
+    }
+}
+
+int main(){
+    while(cin >> n){
+        f(5, 0);
+        cout << endl;
+    }
+}
