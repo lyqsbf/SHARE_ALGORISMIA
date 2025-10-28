@@ -7,7 +7,7 @@ using VC = vector<char>;
 using VVC = vector<VC>;
 using VI = vector<long long>;
 using VVI = vector<VI>;
-int const N = 100000007;
+int const N = 1e8+7;
 
 int main(){
 	int n, m;
