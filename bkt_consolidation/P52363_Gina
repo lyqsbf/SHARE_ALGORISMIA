@@ -1,0 +1,53 @@
+#include <iostream> 
+#include <vector> 
+using namespace std; 
+
+using VE = vector <int>; 
+using VVE = vector <VE>;
+
+int a, b, n, total; 
+VVE maleta; //guarda posicions ocupades maleta
+VVE objectes; //columna 0 i 1 dimensions fila i, 
+			//columna 2 guarda si l'objecte i s'ha posat a la maleta
+
+bool hi_cap (int i, int j, int k) { //mira si l'objecte k cap a la pos (i,j) de la maleta
+	for (int l = 0; l < objectes[k][1]; ++l) { //nomes cal mirar horitzontalment ja que les de sota no poden estar plenes
+		if (maleta[i][j + l]) return false; 
+	}
+	return true; 
+}
+
+void colocar (int i, int j, int k, int ocupat) { //marca les posicions de la maleta que ocupa amb 1 sino 0
+	for (int l = 0; l < objectes[k][0]; ++l) {
+		for (int m = 0; m < objectes[k][1]; ++m) {
+			maleta[i + l][j + m] = ocupat;
+		}
+	}
+}
+	
+int omplir (int i, int j) {
+	if (i == a) return 1; //hem arribat al fial de la maleta
+	if (j == b) return omplir(i + 1, 0); //hem acabat la fila i i omplim la i+1
+	if (maleta[i][j]) return omplir(i, j + 1); //si el lloc que estem omplint ja esta ocupat
+	int resultat = 0; //guardara el valor que busquem
+	for (int k = 0; k < n; ++k) {
+		if (not objectes[k][2] and a >= objectes[k][0] + i and b >= objectes[k][1] + j and hi_cap(i,j,k)) {
+			objectes[k][2] = 1; 
+			colocar(i,j,k,1);
+			resultat += omplir(i,j+objectes[k][1]);
+			colocar(i,j,k,0);
+			objectes[k][2] = 0; 
+		}
+	}
+	return resultat;
+}
+
+int main () {
+	for (int i = 1; cin >> a >> b >> n; ++i) {
+		cout << '#' << i << ": ";
+		maleta = VVE(a, VE(b, 0));
+		objectes = VVE(n, VE(3, 0)); 
+		for (int j = 0; j < n; ++j) cin >> objectes[j][0] >> objectes[j][1]; 
+		cout << omplir(0,0) << endl; 
+	}
+}
