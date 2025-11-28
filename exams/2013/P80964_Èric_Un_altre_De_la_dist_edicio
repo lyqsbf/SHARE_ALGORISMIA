@@ -1,0 +1,54 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+
+using VI = vector<int>;
+using VVI = vector<VI>;
+VVI R;
+string s, t;
+
+int igualar(char a, char b){
+    int val_a = a - 'a';
+    int val_b = b - 'a';
+
+    if(a != 'z' and a < b){
+        int res = 0;
+        while(val_a != val_b){
+            ++val_a;
+            ++res;
+        }
+        return res;
+    }
+    else if(a != 'a' and a > b){
+        int res = 0;
+        while(val_a != val_b){
+            --val_a;
+            ++res;
+        }
+        return res;
+    }
+    else return 0;
+}
+
+
+//Minim cost de fer iguals els prefixos de mida i i j.
+int f(int i, int j){
+    int& res = R[i][j];
+    if(res != -1) return res;
+    if(j == 0) return res = 10*i;
+    if(i == 0) return res = 10*j;
+    return res = min(10 + f(i-1,j),min(10 + f(i,j-1),f(i-1,j-1) + igualar(s[i-1],t[j-1])));
+}
+
+
+int main(){
+    while(cin >> s >> t){
+        int n = s.size();
+        int m = t.size();
+        R = VVI(n+1,VI(m+1,-1));
+
+        cout << f(n,m) << endl;
+    }
+
+}
