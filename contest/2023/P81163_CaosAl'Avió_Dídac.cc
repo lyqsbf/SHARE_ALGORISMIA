@@ -5,8 +5,5 @@ int main() {
 	cout.setf(ios::fixed);
 	cout.precision(4);
 	int n;
-	while (cin >> n) {
-		if (n == 1) cout << 1.0 << endl;
-		else cout << 1.0 / 2 << endl;
-	}
+	while (cin >> n) cout << (n == 1 ? 1.0 : 1.0 / 2) << endl;
 }
