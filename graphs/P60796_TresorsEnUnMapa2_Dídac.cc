@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+using VC = vector<char>;
+using VVC = vector<VC>;
+using VI = vector<int>;
+using VVI = vector<VI>;
+
+int n, m;
+VVC map;
+const VI dx = {0, 1, 0, -1}, dy = {1, 0, -1, 0};
+
+bool ok(int a, int b){
+    if(a >= 0 and a < n and b >= 0 and b < m and map[a][b] != 'X') return true;
+    return false;
+}
+
+int bfs(int i, int j){
+    queue<pair<int, int> > Q;
+    VVI distancia(n, VI(m, -1));
+    distancia[i][j] = 0;
+    Q.push({i, j});
+
+    while(not Q.empty()){
+        int x = Q.front().first, y = Q.front().second; Q.pop();
+        if(map[x][y] == 't') return distancia[x][y];
+        for(int k = 0; k < 4; ++k){
+            int a = x + dx[k], b = y + dy[k];
+            if(ok(a, b) and distancia[a][b] == -1){
+                Q.push({a, b});
+                distancia[a][b] = distancia[x][y] + 1;
+            }
+        }
+    }
+    return -1;
+}
+
+int main(){
+    while(cin >> n >> m){
+        map = VVC(n, VC(m));
+        for(int i = 0; i < n; ++i)
+            for(char& j : map[i]) cin >> j;
+        int i, j;
+        cin >> i >> j;
+
+        int d = bfs(i-1, j-1);
+        if(d != -1) cout << "distancia minima: " << d << endl;
+        else cout << "no es pot arribar a cap tresor" << endl;
+    }
+}
